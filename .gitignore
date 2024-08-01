@@ -5,3 +5,7 @@ equation.aux
 start.py
 equation.log
 equation.pdf
+.env
+*.gz
+*.fls
+*_latexmk
