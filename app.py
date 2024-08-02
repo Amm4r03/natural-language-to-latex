@@ -3,6 +3,7 @@ import os
 from PIL import Image, ImageChops
 import cohere
 import json
+from dotenv import load_dotenv
 
 def latex_to_jpg(equation : str, user_prompt : str) : 
     user_prompt = user_prompt.strip()
@@ -94,7 +95,9 @@ def latex_to_jpg(equation : str, user_prompt : str) :
 # equation = r"\frac{\partial ^2}{\partial x^2} \psi (x,t) + \frac{\partial ^2}{\partial z^2} \psi (x,y,t) - \frac{\partial }{\partial x}V\psi (x,y,z,t) = -i\hbar \frac{\partial \psi (x,y,z,t)}{\partial t}"
 
 def getLatex() -> str :
-    co = cohere.Client("6M18YcGvBHhY3EH4Iem6qrpOPg86U9hfSAaOo8nZ")
+    load_dotenv()
+    cohere_api_key = os.getenv("COHERE_API_KEY")
+    co = cohere.Client(cohere_api_key)
     user_equation = input("enter an expression or a mathematical statement : ")
 
     instruction = r"""
@@ -128,7 +131,7 @@ def getLatex() -> str :
 
 eq = getLatex()
 equation = eq[0]
-print(f"equation received : {equation}")
+# print(f"equation received : {equation}")
 prohibited_words = ["\"", "$", "`"]
 for w in prohibited_words:
     equation = equation.replace(w, "")
