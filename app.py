@@ -102,7 +102,7 @@ def getLatex() -> str :
 
     instruction = r"""
     For any given mathematical expression or theorem, return only the LaTeX code for the equation, and nothing else.
-    No plaintext, explanations, or any other text should be included in your response
+    No plaintext, explanations, or any other text should be included in your response. write a STOP after completing the latex equation
     
     Example:
     User: integrate x from -2 to 5
@@ -123,7 +123,8 @@ def getLatex() -> str :
     data = json.loads(response)
     resp = data["text"]
     # print(resp)
-    a = str(response)
+    # a = str(response)
+    resp = resp[:resp.find("STOP")]
     # print(response, end="\n\n")
     # final_response = a[5:a[9::].find("\"") + 10]
     # print(f"bot response : {final_response}")
